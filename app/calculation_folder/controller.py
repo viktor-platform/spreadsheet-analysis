@@ -5,5 +5,3 @@ class CalculationFolderController(ViktorController):
     label = 'Calculation folder'
     children = ['Calculation']
     show_children_as = 'Cards'  # or 'Table'
-
-    viktor_convert_entity_field = True

@@ -39,8 +39,6 @@ class CalculationController(ViktorController):
     label = 'Unique Calculation'
     parametrization = CalculationParametrization
 
-    viktor_convert_entity_field = True
-
     def get_evaluated_spreadsheet(self, params):
         inputs = [
             SpreadsheetCalculationInput('L', params['general']['beam']['length']),
