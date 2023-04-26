@@ -29,8 +29,8 @@ from viktor.views import DataResult
 from viktor.views import DataView
 from viktor.views import GeometryResult
 from viktor.views import GeometryView
-from viktor.views import SVGResult
-from viktor.views import SVGView
+from viktor.views import ImageResult
+from viktor.views import ImageView
 
 from .parametrization import CalculationParametrization
 
@@ -68,10 +68,10 @@ class CalculationController(ViktorController):
 
         return DataResult(data)
 
-    @SVGView('Schematic', duration_guess=1)
+    @ImageView('Schematic', duration_guess=1)
     def get_svg_view(self, params, **kwargs):
         img_path = Path(__file__).parent / 'beam_schematic.svg'
-        return SVGResult.from_path(img_path)
+        return ImageResult.from_path(img_path)
 
     @GeometryView('3D', duration_guess=1)
     def get_3d_view(self, params, **kwargs):
