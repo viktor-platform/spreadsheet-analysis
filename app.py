@@ -17,23 +17,58 @@ SOFTWARE.
 from pathlib import Path
 
 from viktor.core import ViktorController
-from viktor.external.spreadsheet import SpreadsheetCalculation
-from viktor.external.spreadsheet import SpreadsheetCalculationInput
-from viktor.geometry import CartesianAxes
-from viktor.geometry import Point
-from viktor.geometry import SquareBeam
 from viktor.result import DownloadResult
-from viktor.views import DataGroup
-from viktor.views import DataItem
-from viktor.views import DataResult
-from viktor.views import DataView
-from viktor.views import GeometryResult
-from viktor.views import GeometryView
-from viktor.views import SVGResult
-from viktor.views import SVGView
+from viktor.external.spreadsheet import (
+    SpreadsheetCalculation,
+    SpreadsheetCalculationInput,
+)
+from viktor.geometry import (
+    CartesianAxes,
+    Point,
+    SquareBeam,
+)
+from viktor.views import (
+    DataGroup,
+    DataItem,
+    DataResult,
+    DataView,
+    GeometryResult,
+    GeometryView,
+    ImageResult,
+    ImageView,
+)
 
-from .parametrization import CalculationParametrization
+from viktor.parametrization import (
+    BooleanField, 
+    DownloadButton,
+    LineBreak,
+    NumberField,
+    Parametrization,
+    Section, 
+    Tab,  
+)
+class CalculationParametrization(Parametrization):
 
+    general = Tab('General')
+    general.beam = Section('Beam')
+    general.beam.length = NumberField('Length (L)', suffix='mm', default=100)
+    general.beam.width = NumberField('Width (W)', suffix='mm', default=10)
+    general.beam.height = NumberField('Height (H)', suffix='mm', default=10)
+    general.beam.E = NumberField('Modulus of Elasticity (E)', default=200000, suffix='N/mm2')
+
+    general.loads = Section('Loads')
+    general.loads.aw = NumberField('Starting point of load (aw)', suffix='mm', default=9)
+    general.loads.nl = LineBreak()
+    general.loads.wa = NumberField('Distributed load amplitude (wa)', suffix='N/mm', flex=40, default=5)
+    general.loads.wL = NumberField('Distributed load amplitude (wL)', suffix='N/mm', flex=40, default=5)
+
+    visualization = Tab('Visualization')
+    visualization.axis_system = Section('Axis system')
+    visualization.axis_system.show_axis_system = BooleanField('Visualize axes', default=True)
+
+    downloads = Tab('Downloads')
+    downloads.calculation_sheet = Section('Calculation sheet')
+    downloads.calculation_sheet.btn = DownloadButton('Download', 'download_spreadsheet')
 
 class CalculationController(ViktorController):
     label = 'Unique Calculation'
@@ -68,10 +103,10 @@ class CalculationController(ViktorController):
 
         return DataResult(data)
 
-    @SVGView('Schematic', duration_guess=1)
+    @ImageView('Schematic', duration_guess=1)
     def get_svg_view(self, params, **kwargs):
         img_path = Path(__file__).parent / 'beam_schematic.svg'
-        return SVGResult.from_path(img_path)
+        return ImageResult.from_path(img_path)
 
     @GeometryView('3D', duration_guess=1)
     def get_3d_view(self, params, **kwargs):
