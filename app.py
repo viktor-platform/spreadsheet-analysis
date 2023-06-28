@@ -36,6 +36,8 @@ from viktor.views import (
     GeometryView,
     ImageResult,
     ImageView,
+    WebResult,
+    WebView,
 )
 
 from viktor.parametrization import (
@@ -129,3 +131,13 @@ class CalculationController(ViktorController):
     def download_spreadsheet(self, params, **kwargs):
         result = self.get_evaluated_spreadsheet(params)
         return DownloadResult(result.file_content, 'evaluated_beam.xlsx')
+    
+
+    @WebView("What's next?", duration_guess=1)
+    def whats_next(self, params, **kwargs):
+        """Initiates the process of rendering the "What's next" tab."""
+        html_path = Path(__file__).parent / "next_step.html"
+        with html_path.open(encoding="utf-8") as _file:
+            html_string = _file.read()
+        return WebResult(html=html_string)
+
