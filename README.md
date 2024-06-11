@@ -1,24 +1,20 @@
-![](https://img.shields.io/badge/SDK-v14.0.0-blue) <Please check version is the same as specified in requirements.txt>
-
 # Using a calculation spreadsheet
-This sample app will create an application to calculate a simply supported beam under load. 
-A spreadsheet will be used for the calculations.
+This application shows how to connect an Excel spreadsheet to perform calculations. In this
+example a simply supported beam under load is analyzed.
 
-A full tutorial for this app can be found [here.](https://docs.viktor.ai/docs/guides/tutorials/calculation-spreadsheet)
+A full tutorial for this app can be found [here.](https://docs.viktor.ai/docs/getting-started/tutorials/spreadsheet-calculator-tutorial/)
 
-To run this code, you will need a VIKTOR licence, which you can access using our [free version](https://www.viktor.ai/try-for-free).
+To run this code, you will need a VIKTOR account, which you can access using our [free version](https://www.viktor.ai/try-for-free).
 
-This is an overview of the forces in the example:
+A user can specify the dimensions of the beam and the applied loads. In the spreadsheet the
+following plots are automatically generated:
 
-![](app/calculation/beam_schematic.svg)
+- Deflection
+- Moment distribution
+- Stress distribution
+- Shear force distribution
 
-Here you can see the input parameters on the left. And the calculated results on the right:
+As an example, the Deflection plot is extracted and shown to the user, however this can easily
+be updated to any plot of interest!
 
-![](manifest/images/data-view.png)
-
-This is the tab in the spreadsheet where the analysis is done:
-
-![](manifest/images/analysis.png)
-
-
-
+![](.viktor-template/image.png)
